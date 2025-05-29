@@ -1,0 +1,29 @@
+apiVersion: eventstreams.ibm.com/v1beta2
+kind: KafkaUser
+metadata:
+  name: es-superadmin
+  namespace: aks-event-streams
+  labels:
+    eventstreams.ibm.com/cluster: development
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: "*"
+          patternType: literal
+        operation: All
+      - resource:
+          type: group
+          name: "*"
+          patternType: literal
+        operation: All
+      - resource:
+          type: cluster
+          name: kafka-cluster
+          patternType: literal
+        operation: All
+
